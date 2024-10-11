@@ -1,3 +1,4 @@
+# https://epicapi1digmablat.vercel.app/
 from flask import Flask, request, jsonify
 from transformers import pipeline
 
@@ -10,10 +11,10 @@ pipe = pipeline("text-generation", model="EleutherAI/gpt-neo-2.7B")
 def generate():
     data = request.json
     input_text = data.get('input', '')
-
+    
     # Generate a response from the model
     response = pipe(input_text, max_length=50, num_return_sequences=1)
-
+    
     # Return the generated text as JSON
     return jsonify({'output': response[0]['generated_text']})
 
