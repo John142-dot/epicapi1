@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Generation</title>
+</head>
+<body>
+    <h1>Text Generation API</h1>
+    <textarea id="input" rows="4" cols="50" placeholder="Type your input here..."></textarea><br>
+    <button onclick="sendRequest()">Generate</button>
+    <h2>Response:</h2>
+    <pre id="response"></pre>
+    <script>
+        async function sendRequest() {
+            const inputText = document.getElementById('input').value;
+            const responseDisplay = document.getElementById('response');
+            responseDisplay.textContent = 'Loading...';
+
+            const response = await fetch('/generate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ input: inputText }),
+            });
+
+            const data = await response.json();
+            responseDisplay.textContent = data.output;
+        }
+    </script>
+</body>
+</html>
